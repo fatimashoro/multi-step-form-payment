@@ -1,16 +1,26 @@
-import { useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
-export const SideBarSteps = (props) => {
+export const SideBarSteps = ({ pathto, step, information }) => {
 
   return (
     <>
       <div className='flex space-x-4 items-center'>
-        <span className='border cursor-pointer h-8 w-8 rounded-full flex justify-center items-center hover:bg-Light-blue hover:text-black text-white font-semibold' onClick={props.onClick}>{props.number}</span>
+        <NavLink
+          to={pathto}
+          className={({ isActive }) =>
+            isActive ? "active" : ""
+          }>
+          <span className="border cursor-pointer h-8 w-8 rounded-full flex justify-center items-center hover:bg-Light-blue hover:text-black">
+            {step}
+          </span>
+        </NavLink>
         <div className="">
-          <p className="uppercase text-xs text-white text-Cool-gray">{props.step}</p>
-          <h1 className="font-semibold text-white uppercase">{props.information}</h1>
+          <p className="uppercase text-xs text-white text-Cool-gray"> Step {step}</p>
+          <h1 className="font-semibold text-white uppercase">{information}</h1>
         </div>
       </div>
     </>
   )
 }
+
+

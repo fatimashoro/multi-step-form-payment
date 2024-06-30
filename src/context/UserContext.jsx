@@ -4,9 +4,15 @@ export const UserContext = createContext();
 
 //user context provide
 export const UserContextProvide = ({ children }) => {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState({
+    fname: "",
+    email: "",
+    phone: "",
+  });
+//button context 
+  const [activeButton, setActiveButton] = useState(false)
   return (
-    <UserContext.Provider value={{ userData, setUserData }}>
+    <UserContext.Provider value={{ userData, setUserData,activeButton,setActiveButton}}>
       {children}
     </UserContext.Provider>
   );
@@ -17,7 +23,7 @@ export const SelectPlanContext = createContext();
 //selectplan context provide
 export const SelectPlanContextProvider = ({ children }) => {
   const [planType, setPlanType] = useState([]);
-  const [checkedValue, setCheckedValue] = useState(false); // Default to 'monthly'
+  const [checkedValue, setCheckedValue] = useState(false);
 
   return (
     <SelectPlanContext.Provider value={{ planType, setPlanType, checkedValue, setCheckedValue }}>
