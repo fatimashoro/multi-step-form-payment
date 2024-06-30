@@ -14,3 +14,10 @@
     font-family: Medium;
  }
 
+ a.active span{
+   background-color: #ADD8E6;
+ color: black;
+ border: none;
+ }
+
+
