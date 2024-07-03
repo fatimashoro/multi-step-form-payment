@@ -1,4 +1,3 @@
-import { SideBar } from "../components/SideBar"
 
 export const FinalPage = () => {
     return (

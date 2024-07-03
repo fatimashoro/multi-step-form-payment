@@ -2,12 +2,30 @@ import { PickAddContext } from "../context/UserContext";
 import PickAddOneCard from "../components/PickAddOneCard"
 import { useNavigate } from "react-router-dom";
 import { SelectPlanContext } from "../context/UserContext";
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 
 export const PickAddOnePage = () => {
     const { checkedValue } = useContext(SelectPlanContext);
-    //getting context variable 
-    const { pickOne } = useContext(PickAddContext);
+    const { pickOne, setPickOne, pickOneClicked } = useContext(PickAddContext);
+
+    
+//holding values when we come back again on same page
+useEffect(() => {
+    if (pickOne) {
+        setPickOne(pickOne);
+    }
+}, [pickOne]);
+
+
+    //handle click
+    const handleClick = () => {
+        if (pickOneClicked.length !== 0) {
+            navigate("/finishing")
+            setPickOne(pickOneClicked)
+        }
+
+    }
+
     //navigator 
     const navigate = useNavigate();
     return (
@@ -20,20 +38,20 @@ export const PickAddOnePage = () => {
             <div className="commonCard flex flex-col  sm:mt-10 mt-4 space-y-4">
                 {
                     !checkedValue ? <>
-                        <PickAddOneCard title="Online Service" description="Access to multiplyer games" prize="+$1/mo" />
-                        <PickAddOneCard title="Larger Storage" description="Extra 1TB of cloud save" prize="+$2/mo" />
-                        <PickAddOneCard title="Customizable Profile" description="Custom theme on your profile" prize="+$2/mo" />
+                        <PickAddOneCard id="online_service" title="Online Service" description="Access to multiplyer games" prize="+$1/mo" />
+                        <PickAddOneCard id="arger_storage" title="Larger Storage" description="Extra 1TB of cloud save" prize="+$2/mo" />
+                        <PickAddOneCard id="cusomizable_profile" title="Customizable Profile" description="Custom theme on your profile" prize="+$2/mo" />
                     </> :
                         <>
-                            <PickAddOneCard title="Online Service" description="Access to multiplyer games" prize="+$10/yr" />
-                            <PickAddOneCard title="Larger Storage" description="Extra 1TB of cloud save" prize="+$20/yr" />
-                            <PickAddOneCard title="Customizable Profile" description="Custom theme on your profile" prize="+$20/yr" />
+                            <PickAddOneCard id="online_service" title="Online Service" description="Access to multiplyer games" prize="+$10/yr" />
+                            <PickAddOneCard id="arger_storage" title="Larger Storage" description="Extra 1TB of cloud save" prize="+$20/yr" />
+                            <PickAddOneCard id="cusomizable_profile" title="Customizable Profile" description="Custom theme on your profile" prize="+$20/yr" />
                         </>
                 }
             </div>
             <div className="flex sm:justify-around justify-between w-full absolute  sm:right-0 top-96 sm:top-[31rem] top-[29rem]  ">
                 <button className="text-Cool-gray font-semibold" onClick={() => navigate("/selectplan")}>Go Back</button>
-                <button class={pickOne == "" ? 'bg-gray-300 text-black cursor-not-allowed text-white font-bold py-3 px-6 rounded-lg' : "bg-marine-blue hover:bg-Denim text-white font-bold py-3 px-6 rounded-lg"} onClick={() => {if (pickOne.length != 0){navigate("/finishing")}}}>Next Step</button>
+                <button class={pickOne === "" ? 'bg-gray-300 text-black cursor-not-allowed text-white font-bold py-3 px-6 rounded-lg' : "bg-marine-blue hover:bg-Denim text-white font-bold py-3 px-6 rounded-lg"} onClick={handleClick}>Next Step</button>
             </div>
         </div>
     )

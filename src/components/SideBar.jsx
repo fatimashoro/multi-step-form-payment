@@ -1,22 +1,10 @@
-import { NavLink, useNavigate } from "react-router-dom"
 import { SideBarSteps } from "./SideBarSteps"
 import { useState, useEffect } from "react";
 // import { MobileDisplayImage } from "./MobileDisplayImage";
 
 export const SideBar = () => {
-  const navigate = useNavigate();
 
-  //ste indicator
-  const stepIndecator =()=>{
-    const steps = {
-      path: '/',
-      path: '/selectplan',
-      path: '/pick-one',
-      path: '/finishing',
-    }
-  }
-
-  //function handling image display condition.
+//function handling image display condition.
 
   const useWindowWidth = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);

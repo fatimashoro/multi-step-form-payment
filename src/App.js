@@ -8,9 +8,11 @@ import { CombinedProviders } from './context/UserContext';
 import './App.css';
 import { SideBar } from './components/SideBar';
 
+
 function App() {
   return (
     <CombinedProviders>
+      
       <BrowserRouter >
       <section className="sm:flex  bg-Background sm:justify-center sm:py-20 h-100vh ">
             <div class="sm:flex  sm:border rounded-lg sm:bg-white  bg-Background outerdiv sm:pt-6 sm:pl-6 ">

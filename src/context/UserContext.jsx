@@ -9,24 +9,25 @@ export const UserContextProvide = ({ children }) => {
     email: "",
     phone: "",
   });
-//button context 
-  const [activeButton, setActiveButton] = useState(false)
+
   return (
-    <UserContext.Provider value={{ userData, setUserData,activeButton,setActiveButton}}>
+    <UserContext.Provider value={{ userData, setUserData }}>
       {children}
     </UserContext.Provider>
   );
 }
 
-// selectplan context 
+// create selectplan context 
 export const SelectPlanContext = createContext();
 //selectplan context provide
 export const SelectPlanContextProvider = ({ children }) => {
-  const [planType, setPlanType] = useState([]);
+  const [planType, setPlanType] = useState({});
   const [checkedValue, setCheckedValue] = useState(false);
+  //button context 
+  const [activeButton, setActiveButton] = useState(true)
 
   return (
-    <SelectPlanContext.Provider value={{ planType, setPlanType, checkedValue, setCheckedValue }}>
+    <SelectPlanContext.Provider value={{ planType, setPlanType, checkedValue, setCheckedValue, activeButton, setActiveButton }}>
       {children}
     </SelectPlanContext.Provider>
   );
@@ -38,8 +39,11 @@ export const PickAddContext = createContext();
 //user context provide
 export const PickAddContextProvider = ({ children }) => {
   const [pickOne, setPickOne] = useState([]);
+  const [pickOneClicked, setPickOneClicked] = useState([])
+
+
   return (
-    <PickAddContext.Provider value={{ pickOne, setPickOne }}>
+    <PickAddContext.Provider value={{ pickOne, setPickOne, pickOneClicked, setPickOneClicked }}>
       {children}
     </PickAddContext.Provider>
   );
