@@ -22,9 +22,10 @@ export const SelectPlanContext = createContext();
 //selectplan context provide
 export const SelectPlanContextProvider = ({ children }) => {
   const [planType, setPlanType] = useState({});
+  //yearly and monthly selection based on this
   const [checkedValue, setCheckedValue] = useState(false);
   //button context 
-  const [activeButton, setActiveButton] = useState(true)
+  const [activeButton, setActiveButton] = useState(false)
 
   return (
     <SelectPlanContext.Provider value={{ planType, setPlanType, checkedValue, setCheckedValue, activeButton, setActiveButton }}>

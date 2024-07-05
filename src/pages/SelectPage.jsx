@@ -1,15 +1,13 @@
 import { SelectPageCard } from "../components/SelectPageCard"
 import { MonthlyData, YearlyData } from "../Data"
 import { useNavigate } from "react-router-dom";
-import { useContext,useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { SelectPlanContext } from "../context/UserContext";
 
 
 const SelectPage = () => {
   //getting context state variables
-  const { checkedValue, setCheckedValue } = useContext(SelectPlanContext);
-  const { activeButton } = useContext(SelectPlanContext);
-
+  const { checkedValue, setCheckedValue, planType, setPlanType } = useContext(SelectPlanContext);
   //navigator
   const navigate = useNavigate();
 
@@ -18,7 +16,18 @@ const SelectPage = () => {
     if (checkedValue) {
       setCheckedValue(checkedValue);
     }
-}, [checkedValue]);
+  }, [checkedValue]);
+
+  //handle change function
+  const handleClick = (id, title, prize) => {
+    const isSelectedCardActive = planType && planType.id === id;
+    if (isSelectedCardActive) {
+      setPlanType({})
+    }
+    else {
+      setPlanType({ id, title, prize })
+    }
+  }
 
 
   return (
@@ -34,13 +43,13 @@ const SelectPage = () => {
             !checkedValue ? MonthlyData.map((item) => {
               return (
                 <>
-                  <SelectPageCard key={item.id} img={item.img} prize={item.prize} title={item.title} id={item.id} />
+                  <SelectPageCard key={item.id} img={item.img} prize={item.prize} title={item.title} id={item.id} handleClick={() => handleClick(item.id, item.title, item.prize)} isCurrentPickAddOneSelected={planType.id === item.id ? true : false} />
                 </>)
             })
               : YearlyData.map((item) => {
                 return (
                   <>
-                    <SelectPageCard key={item.id} img={item.img} prize={item.prize} title={item.title} offer="2 months free" id={item.id} />
+                    <SelectPageCard key={item.id} img={item.img} prize={item.prize} title={item.title} offer="2 months free" id={item.id} handleClick={() => handleClick(item.id, item.title, item.prize)} />
                   </>)
               })
           }
@@ -55,7 +64,7 @@ const SelectPage = () => {
         </div>
         <div className="flex sm:justify-around justify-between w-full absolute  sm:right-0 top-96 sm:top-[31rem] top-[35rem]  ">
           <button className="text-Cool-gray font-semibold" onClick={() => navigate("/")}>Go Back</button>
-          <button disabled={activeButton} className={activeButton ? 'bg-gray-300 text-black cursor-not-allowed text-white font-bold py-3 px-6 rounded-lg' : "bg-marine-blue hover:bg-Denim text-white font-bold py-3 px-6 rounded-lg" } onClick={() => navigate("/pick-one")}>Next Step</button>
+          <button disabled={planType.id ? false : true} className={planType.id ? "bg-marine-blue hover:bg-Denim text-white font-bold py-3 px-6 rounded-lg" : 'bg-gray-300 text-black  text-white font-bold py-3 px-6 rounded-lg'} onClick={() => navigate("/pick-one")}>Next Step</button>
         </div>
       </div>
     </>

@@ -5,7 +5,7 @@ import { useContext } from "react";
 export const FinishingPage = () => {
     //using context states
     const { planType, checkedValue } = useContext(SelectPlanContext);
-    const { pickOne } = useContext(PickAddContext);
+    const { pickOneClicked } = useContext(PickAddContext);
 //navigator
     const navigate = useNavigate();
 
@@ -92,24 +92,24 @@ export const FinishingPage = () => {
   }
 // function call on the basis of yearly monthly selection
   if (!checkedValue) {
-      if (pickOne === "") {
+      if (pickOneClicked === "") {
           coutingFuncMonthly();
-      } else if (pickOne.length === 1) {
-          coutingFuncMonthly(pickOne[0].prize);
-      } else if (pickOne.length === 2) {
-          coutingFuncMonthly(pickOne[0].prize, pickOne[1].prize);
-      } else if (pickOne.length === 3) {
-          coutingFuncMonthly(pickOne[0].prize, pickOne[1].prize, pickOne[2].prize);
+      } else if (pickOneClicked.length === 1) {
+          coutingFuncMonthly(pickOneClicked[0].prize);
+      } else if (pickOneClicked.length === 2) {
+          coutingFuncMonthly(pickOneClicked[0].prize, pickOneClicked[1].prize);
+      } else if (pickOneClicked.length === 3) {
+          coutingFuncMonthly(pickOneClicked[0].prize, pickOneClicked[1].prize, pickOneClicked[2].prize);
       }
   } else {
-      if (pickOne === "") {
+      if (pickOneClicked === "") {
           coutingFuncYearly();
-      } else if (pickOne.length === 1) {
-          coutingFuncYearly(pickOne[0].prize);
-      } else if (pickOne.length === 2) {
-          coutingFuncYearly(pickOne[0].prize, pickOne[1].prize);
-      } else if (pickOne.length === 3) {
-          coutingFuncYearly(pickOne[0].prize, pickOne[1].prize, pickOne[2].prize);
+      } else if (pickOneClicked.length === 1) {
+          coutingFuncYearly(pickOneClicked[0].prize);
+      } else if (pickOneClicked.length === 2) {
+          coutingFuncYearly(pickOneClicked[0].prize, pickOneClicked[1].prize);
+      } else if (pickOneClicked.length === 3) {
+          coutingFuncYearly(pickOneClicked[0].prize, pickOneClicked[1].prize, pickOneClicked[2].prize);
       }
   }
 
@@ -129,12 +129,12 @@ export const FinishingPage = () => {
                 <p className='font-bold'>{!checkedValue ? '$9/mo' : '$90/yr'}</p>
             </div>
             <hr className="w-96 my-4" />
-            {pickOne.map((pickOne, index) => (
+            {pickOneClicked.map((pickOneClicked, index) => (
                 <>
                     <div className="flex justify-between items-cente" key={index}>
 
-                        <span className="text-Cool-gray my-2 text-sm">{pickOne.title || "nothing selected"}</span>
-                        <span className=' text-sm'>{pickOne.prize || "0"}</span>
+                        <span className="text-Cool-gray my-2 text-sm">{pickOneClicked.title || "nothing selected"}</span>
+                        <span className=' text-sm'>{pickOneClicked.prize || "0"}</span>
                     </div>
                 </>
             ))}

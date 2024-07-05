@@ -1,5 +1,7 @@
 
 export const FinalPage = () => {
+
+ 
     return (
         <div className="sm:border-0 border rounded-xl space-y-4 sm:px-24 px-10 sm:py-14 py-20  sm:w-[39rem] w-96 sm:relative absolute top-24 left-32 sm:top-0 sm:left-0 bg-white flex flex-col justify-center items-center  ">
             <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
@@ -11,6 +13,7 @@ export const FinalPage = () => {
             <h1 className="font-extrabold text-3xl">Thank You!</h1>
             <p className="text-center text-Cool-gray">Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at support@loremgaming.com.
             </p>
+       
         </div>
     )
 }

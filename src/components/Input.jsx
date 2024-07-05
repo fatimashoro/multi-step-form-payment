@@ -17,4 +17,4 @@ const Input = ({ label, type, name, placeholder, value, onChange,loginErrors }) 
     )
 }
 
-export default Input
+export default Input 

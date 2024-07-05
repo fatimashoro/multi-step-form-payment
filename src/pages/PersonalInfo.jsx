@@ -65,14 +65,15 @@ export const PersonalInfo = () => {
     const handleChange = (e) => {
         const value = e.target.value
         const name = e.target.name
-     
-        setUserInfo({ ...userInfo, [name]: value })
+     const updatedState  ={ ...userInfo, [name]: value }
+        setUserInfo(updatedState)
        // const validationErrors = validateForm(userInfo)
         setLoginErrors(validateForm(userInfo))
         if (Object.keys(validateForm(userInfo)).length === 0) {
           setActiveButton(false)
         }
          }
+         
     return (
         <div class="  innerdiv2 absolute sm:static left-20 bottom-0 top-20  ">
             <div className="sm:px-20  space-y-4 sm:w-[38rem] w-96 border sm:border-0 bg-white rounded-xl  px-10 py-11">

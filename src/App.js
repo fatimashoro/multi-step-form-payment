@@ -25,6 +25,7 @@ function App() {
               <Route path="/pick-one" element={<PickAddOnePage />} />
               <Route path="/finishing" element={<FinishingPage />} />
               <Route path="/final" element={<FinalPage />} />
+           
           </Routes>
           </div>
         </section>

@@ -6,25 +6,27 @@ import { useContext,useEffect } from "react";
 
 export const PickAddOnePage = () => {
     const { checkedValue } = useContext(SelectPlanContext);
-    const { pickOne, setPickOne, pickOneClicked } = useContext(PickAddContext);
+    const { pickOneClicked,setPickOneClicked } = useContext(PickAddContext);
 
     
 //holding values when we come back again on same page
 useEffect(() => {
-    if (pickOne) {
-        setPickOne(pickOne);
+    if (pickOneClicked) {
+        setPickOneClicked(pickOneClicked);
     }
-}, [pickOne]);
+}, [pickOneClicked]);
 
 
     //handle click
     const handleClick = () => {
-        if (pickOneClicked.length !== 0) {
+       
             navigate("/finishing")
-            setPickOne(pickOneClicked)
-        }
+            setPickOneClicked(pickOneClicked)
+        
 
-    }
+    } 
+
+ 
 
     //navigator 
     const navigate = useNavigate();
@@ -51,7 +53,7 @@ useEffect(() => {
             </div>
             <div className="flex sm:justify-around justify-between w-full absolute  sm:right-0 top-96 sm:top-[31rem] top-[29rem]  ">
                 <button className="text-Cool-gray font-semibold" onClick={() => navigate("/selectplan")}>Go Back</button>
-                <button class={pickOne === "" ? 'bg-gray-300 text-black cursor-not-allowed text-white font-bold py-3 px-6 rounded-lg' : "bg-marine-blue hover:bg-Denim text-white font-bold py-3 px-6 rounded-lg"} onClick={handleClick}>Next Step</button>
+                <button class= "bg-marine-blue hover:bg-Denim text-white font-bold py-3 px-6 rounded-lg" onClick={handleClick}>Next Step</button>
             </div>
         </div>
     )
