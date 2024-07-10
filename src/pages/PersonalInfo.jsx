@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import Input from "../components/Input";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { NavigateContext } from "../context/UserContext";
 
 export const PersonalInfo = () => {
     const [userInfo, setUserInfo] = useState({
@@ -11,6 +12,7 @@ export const PersonalInfo = () => {
     });
     const [loginErrors, setLoginErrors] = useState({});
     const { setUserData, userData } = useContext(UserContext);
+    const {formFilled,setFormFilled } = useContext(NavigateContext)
 
  //state responsible for removing  disable  from button
     const [ activeButton, setActiveButton ] = useState(true)
@@ -59,7 +61,9 @@ export const PersonalInfo = () => {
         if (Object.keys(validationErrors).length === 0) {
             setUserData(userInfo)
             navigate('/selectplan')
+            setFormFilled({...formFilled,YourInfo:true}) 
           }
+         
     }
     //handle Onchange
     const handleChange = (e) => {
@@ -68,8 +72,8 @@ export const PersonalInfo = () => {
      const updatedState  ={ ...userInfo, [name]: value }
         setUserInfo(updatedState)
        // const validationErrors = validateForm(userInfo)
-        setLoginErrors(validateForm(userInfo))
-        if (Object.keys(validateForm(userInfo)).length === 0) {
+        setLoginErrors(validateForm(updatedState))
+        if (Object.keys(validateForm(updatedState)).length === 0) {
           setActiveButton(false)
         }
          }

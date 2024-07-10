@@ -3,11 +3,13 @@ import PickAddOneCard from "../components/PickAddOneCard"
 import { useNavigate } from "react-router-dom";
 import { SelectPlanContext } from "../context/UserContext";
 import { useContext,useEffect } from "react";
+import { NavigateContext } from "../context/UserContext";
 
 export const PickAddOnePage = () => {
     const { checkedValue } = useContext(SelectPlanContext);
     const { pickOneClicked,setPickOneClicked } = useContext(PickAddContext);
-
+    /// getting contect for allowig to work navigation
+    const {formFilled,setFormFilled } = useContext(NavigateContext)
     
 //holding values when we come back again on same page
 useEffect(() => {
@@ -16,15 +18,30 @@ useEffect(() => {
     }
 }, [pickOneClicked]);
 
+//handle individual card
+const handleTableClick = (id, title, prize) => {
+    const ifALreadyExist = pickOneClicked?.find((item) => item.id === id);
 
-    //handle click
+    if (ifALreadyExist) {
+      const excludeCurrentPIck = pickOneClicked.filter(
+        (item) => item.id !== id
+      );
+      setPickOneClicked(excludeCurrentPIck);
+    } else {
+      setPickOneClicked([...pickOneClicked, { id, title, prize }]);
+    }
+  };
+
+
+//handle click
     const handleClick = () => {
-       
-            navigate("/finishing")
-            setPickOneClicked(pickOneClicked)
-        
-
-    } 
+        setFormFilled({
+            ...formFilled,
+            AddOns: true,
+          });
+         navigate("/finishing")
+        setPickOneClicked(pickOneClicked)
+     } 
 
  
 
@@ -40,14 +57,14 @@ useEffect(() => {
             <div className="commonCard flex flex-col  sm:mt-10 mt-4 space-y-4">
                 {
                     !checkedValue ? <>
-                        <PickAddOneCard id="online_service" title="Online Service" description="Access to multiplyer games" prize="+$1/mo" />
-                        <PickAddOneCard id="arger_storage" title="Larger Storage" description="Extra 1TB of cloud save" prize="+$2/mo" />
-                        <PickAddOneCard id="cusomizable_profile" title="Customizable Profile" description="Custom theme on your profile" prize="+$2/mo" />
+                        <PickAddOneCard id="online_service" title="Online Service" description="Access to multiplyer games" prize="1" handleTableClick={handleTableClick}/>
+                        <PickAddOneCard id="arger_storage" title="Larger Storage" description="Extra 1TB of cloud save" prize="2" handleTableClick={handleTableClick}/>
+                        <PickAddOneCard id="cusomizable_profile" title="Customizable Profile" description="Custom theme on your profile" prize="2" handleTableClick={handleTableClick}/>
                     </> :
                         <>
-                            <PickAddOneCard id="online_service" title="Online Service" description="Access to multiplyer games" prize="+$10/yr" />
-                            <PickAddOneCard id="arger_storage" title="Larger Storage" description="Extra 1TB of cloud save" prize="+$20/yr" />
-                            <PickAddOneCard id="cusomizable_profile" title="Customizable Profile" description="Custom theme on your profile" prize="+$20/yr" />
+                            <PickAddOneCard id="online_service" title="Online Service" description="Access to multiplyer games" prize="10" handleTableClick={handleTableClick}/>
+                            <PickAddOneCard id="arger_storage" title="Larger Storage" description="Extra 1TB of cloud save" prize="20" handleTableClick={handleTableClick}/>
+                            <PickAddOneCard id="cusomizable_profile" title="Customizable Profile" description="Custom theme on your profile" prize="20" handleTableClick={handleTableClick}/>
                         </>
                 }
             </div>

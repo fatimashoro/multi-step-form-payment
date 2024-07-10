@@ -6,7 +6,7 @@ export const MonthlyData = [
                 <path fill="#FFF" fill-rule="nonzero" d="M24.995 18.005h-3.998v5.998h-2v-5.998H15a1 1 0 0 0-1 1V29a1 1 0 0 0 1 1h9.995a1 1 0 0 0 1-1v-9.995a1 1 0 0 0-1-1Zm-5.997 8.996h-2v-1.999h2v2Zm2-11.175a2.999 2.999 0 1 0-2 0v2.18h2v-2.18Z" />
             </g></svg>,
         title: "Arcade",
-        prize: '$9/mo'
+        prize: 9
     },
     {
         id:2,
@@ -16,7 +16,7 @@ export const MonthlyData = [
             </g>
         </svg>,
         title: "Advanced",
-        prize: '$12/mo'
+        prize: 12
     },
     {
         id:3,
@@ -26,7 +26,7 @@ export const MonthlyData = [
             </g>
         </svg>,
          title: "Pro",
-        prize: '$15/mo'
+        prize: 15
     }
 ]
 
@@ -38,7 +38,7 @@ export const YearlyData = [
                 <path fill="#FFF" fill-rule="nonzero" d="M24.995 18.005h-3.998v5.998h-2v-5.998H15a1 1 0 0 0-1 1V29a1 1 0 0 0 1 1h9.995a1 1 0 0 0 1-1v-9.995a1 1 0 0 0-1-1Zm-5.997 8.996h-2v-1.999h2v2Zm2-11.175a2.999 2.999 0 1 0-2 0v2.18h2v-2.18Z" />
             </g></svg>,
         title: "Arcade",
-        prize: '$90/yr'
+        prize: 90
     },
     {
         id:2,
@@ -48,7 +48,7 @@ export const YearlyData = [
             </g>
         </svg>,
         title: "Advanced",
-        prize: '$120/yr'
+        prize: 120
     },
     {
         id:3,
@@ -58,6 +58,6 @@ export const YearlyData = [
             </g>
         </svg>,
          title: "Pro",
-        prize: '$150/yr'
+        prize: 150
     }
 ]

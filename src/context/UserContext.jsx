@@ -50,15 +50,40 @@ export const PickAddContextProvider = ({ children }) => {
   );
 }
 
+//contact for making navbar icons navigatable 
+export const NavigateContext = createContext();
+
+//user context provide
+export const NavigateContextProvider = ({ children }) => {
+  const [formFilled, setFormFilled] = useState({
+    YourInfo: false,
+    SelectPlan: false,
+    AddOns: false,
+    SumOfAll: false
+  })
+
+  return (
+    <NavigateContext.Provider value={{ formFilled, setFormFilled }}>
+      {children}
+    </NavigateContext.Provider>
+  );
+}
+
+
 // Combine both providers
 export const CombinedProviders = ({ children }) => {
   return (
     <UserContextProvide>
       <SelectPlanContextProvider>
         <PickAddContextProvider>
-          {children}
+          <NavigateContextProvider>
+            {children}
+          </NavigateContextProvider>
         </PickAddContextProvider>
       </SelectPlanContextProvider>
     </UserContextProvide>
   );
 };
+
+
+

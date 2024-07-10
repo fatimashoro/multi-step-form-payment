@@ -3,11 +3,15 @@ import { MonthlyData, YearlyData } from "../Data"
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react"
 import { SelectPlanContext } from "../context/UserContext";
-
+import { NavigateContext } from "../context/UserContext";
 
 const SelectPage = () => {
   //getting context state variables
   const { checkedValue, setCheckedValue, planType, setPlanType } = useContext(SelectPlanContext);
+    /// getting contect for allowig to work navigation
+    const {formFilled,setFormFilled } = useContext(NavigateContext)
+
+    
   //navigator
   const navigate = useNavigate();
 
@@ -26,8 +30,17 @@ const SelectPage = () => {
     }
     else {
       setPlanType({ id, title, prize })
+      //setFormFilled({...formFilled,SelectPlan:true})
     }
   }
+
+  const handleClickNextStep = () => {
+    setFormFilled({
+      ...formFilled,
+      SelectPlan: true,
+    });
+    navigate("/pick-one");
+  };
 
 
   return (
@@ -64,7 +77,7 @@ const SelectPage = () => {
         </div>
         <div className="flex sm:justify-around justify-between w-full absolute  sm:right-0 top-96 sm:top-[31rem] top-[35rem]  ">
           <button className="text-Cool-gray font-semibold" onClick={() => navigate("/")}>Go Back</button>
-          <button disabled={planType.id ? false : true} className={planType.id ? "bg-marine-blue hover:bg-Denim text-white font-bold py-3 px-6 rounded-lg" : 'bg-gray-300 text-black  text-white font-bold py-3 px-6 rounded-lg'} onClick={() => navigate("/pick-one")}>Next Step</button>
+          <button disabled={planType.id ? false : true} className={planType.id ? "bg-marine-blue hover:bg-Denim text-white font-bold py-3 px-6 rounded-lg" : 'bg-gray-300 text-black  text-white font-bold py-3 px-6 rounded-lg'} onClick={handleClickNextStep}>Next Step</button>
         </div>
       </div>
     </>
