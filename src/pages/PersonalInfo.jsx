@@ -2,8 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import Input from "../components/Input";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
-
-
+import { NavigateContext } from "../context/UserContext";
 
 export const PersonalInfo = () => {
     const [userInfo, setUserInfo] = useState({
@@ -13,11 +12,13 @@ export const PersonalInfo = () => {
     });
     const [loginErrors, setLoginErrors] = useState({});
     const { setUserData, userData } = useContext(UserContext);
-   
-    //getting button context
-    const {activeButton,setActiveButton} = useContext(UserContext)
+    const {formFilled,setFormFilled } = useContext(NavigateContext)
+
+ //state responsible for removing  disable  from button
+    const [ activeButton, setActiveButton ] = useState(true)
 
 
+//holding values when we come back again on same page
     useEffect(() => {
         if (userData) {
             setUserInfo(userData);
@@ -27,22 +28,23 @@ export const PersonalInfo = () => {
 
     //handle input erros logic
     const validateForm = (inputvalues) => {
-        const validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        //var reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        var reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
         const error = {}
-        if (inputvalues.fname.length == 0) {
+        if (inputvalues.fname.length === 0) {
             error.fname = "This field is required"
         }
-        if (inputvalues.email.length == 0) {
+        if (inputvalues.email.length === 0) {
             error.email = "This field is required"
         }
-        else if (!validRegex.test(inputvalues.email)) {
+        else if (!reg.test(inputvalues.email)) {
             error.email = "Please Enter Valid Email"
 
         }
-        if (inputvalues.phone.length == 0) {
+        if (inputvalues.phone.length === 0) {
             error.phone = "This field is required"
         }
-        else if (inputvalues.phone.length < 10 || inputvalues.phone.length > 10) {
+        else if (inputvalues.phone.length !== 10) {
             error.phone = "number must be lenth of 10"
         }
         return error
@@ -59,20 +61,23 @@ export const PersonalInfo = () => {
         if (Object.keys(validationErrors).length === 0) {
             setUserData(userInfo)
             navigate('/selectplan')
-            setActiveButton(true)
-        }
+            setFormFilled({...formFilled,YourInfo:true}) 
+          }
+         
     }
     //handle Onchange
     const handleChange = (e) => {
         const value = e.target.value
         const name = e.target.name
-        setUserInfo({ ...userInfo, [name]: value })
-
-        if (Object.keys(validateForm(userInfo)).length === 0) {
-          
-            setActiveButton(true)
+     const updatedState  ={ ...userInfo, [name]: value }
+        setUserInfo(updatedState)
+       // const validationErrors = validateForm(userInfo)
+        setLoginErrors(validateForm(updatedState))
+        if (Object.keys(validateForm(updatedState)).length === 0) {
+          setActiveButton(false)
         }
-    }
+         }
+         
     return (
         <div class="  innerdiv2 absolute sm:static left-20 bottom-0 top-20  ">
             <div className="sm:px-20  space-y-4 sm:w-[38rem] w-96 border sm:border-0 bg-white rounded-xl  px-10 py-11">
@@ -83,16 +88,15 @@ export const PersonalInfo = () => {
 
                 <div>
                     <form className="space-y-6" onSubmit={handleSubmit}>
-                       <Input label='Name' type='text' name='fname' placeholder="eg. Stephin King" value={userInfo.fname} onChange={handleChange} loginErrors={loginErrors.fname}/>
-                       <Input label='Email Adress' type='email' name='email' placeholder="eg. StephinKing@gmail.com" value={userInfo.email} onChange={handleChange} loginErrors={loginErrors.email}/>
-                       <Input label='Phone number' type='number' name='phone' placeholder="eg. 02233170" value={userInfo.phone} onChange={handleChange} loginErrors={loginErrors.phone}/>
-                       
-                        <div className="flex justify-end " style={{ marginTop: "90px" }}>
+                        <Input label='Name' type='text' name='fname' placeholder="eg. Stephin King" value={userInfo.fname} onChange={handleChange} loginErrors={loginErrors.fname} />
+                        <Input label='Email Adress' type='email' name='email' placeholder="eg. StephinKing@gmail.com" value={userInfo.email} onChange={handleChange} loginErrors={loginErrors.email} />
+                        <Input label='Phone number' type='number' name='phone' placeholder="eg. 02233170" value={userInfo.phone} onChange={handleChange} loginErrors={loginErrors.phone} />
 
-                            <button type="submit" class={activeButton ? "bg-marine-blue hover:bg-Denim text-white font-bold py-3 px-6 rounded-lg" : 'bg-gray-300 text-black cursor-not-allowed text-white font-bold py-3 px-6 rounded-lg'}>Next Step</button>
+                        <div className="flex justify-end " style={{ marginTop: "90px" }}>
+                            <button type="submit" disabled={activeButton} class={!activeButton ? "bg-marine-blue hover:bg-Denim text-white font-bold py-3 px-6 rounded-lg" : 'bg-gray-300 text-black cursor-not-allowed text-white font-bold py-3 px-6 rounded-lg'} >Next Step</button>
 
                         </div>
-                    </form>
+                   </form>
                 </div>
             </div>
         </div>

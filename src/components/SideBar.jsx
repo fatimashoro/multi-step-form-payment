@@ -1,21 +1,10 @@
-import { NavLink, useNavigate } from "react-router-dom"
 import { SideBarSteps } from "./SideBarSteps"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 // import { MobileDisplayImage } from "./MobileDisplayImage";
-
+//import { NavigateContext } from "../context/UserContext";
 export const SideBar = () => {
-  const navigate = useNavigate();
-
-  //ste indicator
-  const stepIndecator =()=>{
-    const steps = {
-      path: '/',
-      path: '/selectplan',
-      path: '/pick-one',
-      path: '/finishing',
-    }
-  }
-
+  /// getting contect for allowig to work navigation
+  //const {formFilled,setFormFilled } = useContext(NavigateContext)
   //function handling image display condition.
 
   const useWindowWidth = () => {
@@ -33,6 +22,12 @@ export const SideBar = () => {
     return windowWidth;
   };
 
+  //on click
+  const handleOnClick = () => {
+    console.log('wroked')
+  }
+
+
   return (
     <div className='maindiv  backgroundimage' >
       <div className="svg relative">
@@ -45,10 +40,10 @@ export const SideBar = () => {
               <path stroke="#fff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width="5" d="m165.305 469.097 10.607-10.806M209.461 474.581l-12.506-10.503M187.56 488.991l-6.908 14.798" /><path fill="#FFAF7E" d="M.305 546.891c37.003 0 67-29.997 67-67s-29.997-67-67-67-67 29.997-67 67 29.997 67 67 67Z" /></g>
           </svg>
             <div className="sm:space-y-8 absolute top-10 left-8">
-          <SideBarSteps step="1"  information="Your Info"  pathto="/"/>
-              <SideBarSteps   step="2" information="Select Plan" pathto="/selectplan" />
-              <SideBarSteps pathto="/pick-one"  step="3" information="Add-ons" />
-              <SideBarSteps pathto="/finishing"  step="4" information="Summary" />
+              <SideBarSteps stepName='YourInfo' step="1" information="Your Info" pathto="/" />
+              <SideBarSteps stepName='SelectPlan' step="2" information="Select Plan" pathto="/selectplan" />
+              <SideBarSteps stepName='AddOns' pathto="/pick-one" step="3" information="Add-ons" />
+              <SideBarSteps stepName='SumOfAll' pathto="/finishing" step="4" information="Summary" />
             </div>
           </>
             : <>
